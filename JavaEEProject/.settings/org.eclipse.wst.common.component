@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="JavaEEProject">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="javaEEProject.ejb.jar" deploy-path="/" handle="module:/resource/javaEEProject.ejb/javaEEProject.ejb">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="javaEEProject.ejbClient.jar" deploy-path="/" handle="module:/resource/javaEEProject.ejbClient/javaEEProject.ejbClient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="javaEEProject.web.war" deploy-path="/" handle="module:/resource/javaEEProject.web/javaEEProject.web">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>
