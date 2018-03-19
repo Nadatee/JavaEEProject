@@ -7,5 +7,5 @@ import javax.ejb.Local;
 @Local
 public interface POIBeanLocal {
 	
-	public void readExcel() throws IOException;
+	//public void readExcel() throws IOException;
 }
