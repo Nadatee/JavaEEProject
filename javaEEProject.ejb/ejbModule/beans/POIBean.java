@@ -29,7 +29,7 @@ public class POIBean implements POIBeanRemote, POIBeanLocal {
     }
     
 //	@Schedule(hour="*",minute="*",second="*/30")
-	@Schedule(hour="*",minute="*/10")
+//	@Schedule(hour="*",minute="*/10")
 	public void readExcel() throws IOException {
 		String url = "https://openfigi.com/assets/local/exchange-code-mic-mapping.xls";
 		URL exchange = new URL(url);
