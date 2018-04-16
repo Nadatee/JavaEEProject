@@ -12,5 +12,8 @@
             <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="poi-3.17.jar" deploy-path="/lib" handle="module:/classpath/lib/C:/Users/Maibritt/Downloads/poi-3.17.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>
