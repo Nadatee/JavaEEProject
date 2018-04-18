@@ -1,6 +1,8 @@
 package beans;
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Schedule;
@@ -11,6 +13,8 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+
+import jpa.ExcelData;
 
 
 /**
@@ -28,9 +32,13 @@ public class POIBean implements POIBeanRemote, POIBeanLocal {
         // TODO Auto-generated constructor stub
     }
     
+    List<String> list = new LinkedList<String>();
+    List<ExcelData> data = new LinkedList<ExcelData>();
+    List<String> oldData = new LinkedList<String>();
+    
 //	@Schedule(hour="*",minute="*",second="*/30")
 //	@Schedule(hour="*",minute="*/10")
-	public void readExcel() throws IOException {
+	public List<String> readExcel() throws IOException {
 		String url = "https://openfigi.com/assets/local/exchange-code-mic-mapping.xls";
 		URL exchange = new URL(url);
 		Workbook wb = new HSSFWorkbook(exchange.openStream());
@@ -41,10 +49,11 @@ public class POIBean implements POIBeanRemote, POIBeanLocal {
 	            System.out.print(" - ");
 	            String text = cell.getStringCellValue();
 	            System.out.print(text);
+	            
+	            list.add(text);
 			}
 		}
 		wb.close();
-
+		return list;
 	}
-
 }
