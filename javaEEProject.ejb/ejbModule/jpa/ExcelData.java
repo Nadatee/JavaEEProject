@@ -146,9 +146,11 @@ public class ExcelData implements Serializable {
 	public void setIsoCountry(String isoCountry) {
 		this.isoCountry = isoCountry;
 	}
-
-
-
 	
-   
+	@Override
+	public String toString() {
+		return("ExcelData Mic = " + mic + " OperatingMic = " + operatingMic + " micExchangeName = " + micExchangeName 
+				+ " corpExchange = " + corpExchange + " equityExchangeCode=" + equityExchangeCode + " equityExchangeName = " + equityExchangeName 
+				+ " compositeCode = " + compositeCode + " isoCountry = " + isoCountry);
+	}
 }
