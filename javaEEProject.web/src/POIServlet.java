@@ -66,7 +66,7 @@ public class POIServlet<ExcelData> extends HttpServlet {
 			List<ExcelData> info = poiLocal.readExcel();
 			for(ExcelData data :info ) {
 				write.println("ExcelData:" + data.toString() );
-			    //poiLocal.create(data);
+			    poiLocal.create(data);
 			}
 //			write.println("stateless:" + poiLocal.readExcel().toString());
 		}
