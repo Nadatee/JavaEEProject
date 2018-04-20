@@ -84,36 +84,6 @@ public class POIBean implements POIBeanRemote, POIBeanLocal<ExcelData> {
     public void create(ExcelData excelData) {
     	entityManager.persist(excelData);
     }
-		    
-    
-//	public List<String> readExcel() throws IOException {
-//		String url = "https://openfigi.com/assets/local/exchange-code-mic-mapping.xls";
-//		URL exchange = new URL(url);
-//		Workbook wb = new HSSFWorkbook(exchange.openStream());
-//		Sheet sheet = wb.getSheetAt(0);
-//		for (Row row : sheet) {
-//			System.out.println("");
-//			
-//			for (Cell cell : row) {
-//	            System.out.print(" - ");
-//	            System.out.println("Test: " + cell.getRow());
-//	            text = cell.getStringCellValue();
-//	            if(!text.isEmpty() || text != null ) {
-//	            	oldText = text;
-//	            	 System.out.print("old text: " + oldText);
-//	            }
-//	            else 
-//	            	text = oldText;
-//	            
-//	           // System.out.println(text);	           
-//	            
-//	            list.add(text);
-//			}
-//		}
-//		wb.close();
-//		return list;
-//	}
-    
-        
+		            
         
 }
