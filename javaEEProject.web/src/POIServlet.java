@@ -2,7 +2,6 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -43,21 +42,16 @@ public class POIServlet<ExcelData> extends HttpServlet {
 	 */
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		try (PrintWriter write = response.getWriter()) {
-
             
 			HttpSession session = request.getSession();
-//			POIBeanLocal<?> poiLocal = (POIBeanLocal<?>) session.getAttribute("stateless");			 
 			poiLocal = (POIBeanLocal<ExcelData>) session.getAttribute("stateless");			 
 
 			if (poiLocal == null) {
 				try {
 					poiLocal = (POIBeanLocal<ExcelData>) new  InitialContext().lookup("java:app/javaEEProject.ejb/POIBean!beans.POIBeanLocal");
-				} catch (NamingException e) {
-					// TODO Auto-generated catch block
+				} catch (NamingException e) {					
 					e.printStackTrace();
 				}
 				session.setAttribute("stateless", poiLocal);
@@ -65,18 +59,15 @@ public class POIServlet<ExcelData> extends HttpServlet {
 						
 			List<ExcelData> info = poiLocal.readExcel();
 			for(ExcelData data :info ) {
-				write.println("ExcelData:" + data.toString() );
-			    poiLocal.create(data);
+				write.println("ExcelData:" + data.toString());			    
 			}
-//			write.println("stateless:" + poiLocal.readExcel().toString());
 		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		doGet(request, response);
 	}
 

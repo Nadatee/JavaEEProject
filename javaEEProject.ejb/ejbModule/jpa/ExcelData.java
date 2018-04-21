@@ -82,11 +82,9 @@ public class ExcelData implements Serializable {
 	}
 
 
-
 	public void setMicExchangeName(String micExchangeName) {
 		this.micExchangeName = micExchangeName;
 	}
-
 
 
 	public String getCorpExchange() {
@@ -94,17 +92,14 @@ public class ExcelData implements Serializable {
 	}
 
 
-
 	public void setCorpExchange(String corpExchange) {
 		this.corpExchange = corpExchange;
 	}
 
 
-
 	public String getEquityExchangeCode() {
 		return equityExchangeCode;
 	}
-
 
 
 	public void setEquityExchangeCode(String equityExchangeCode) {
@@ -118,7 +113,6 @@ public class ExcelData implements Serializable {
 	}
 
 
-
 	public void setEquityExchangeName(String equityExchangeName) {
 		this.equityExchangeName = equityExchangeName;
 	}
@@ -130,11 +124,9 @@ public class ExcelData implements Serializable {
 	}
 
 
-
 	public void setCompositeCode(String compositeCode) {
 		this.compositeCode = compositeCode;
 	}
-
 
 
 	public String getIsoCountry() {
@@ -142,10 +134,10 @@ public class ExcelData implements Serializable {
 	}
 
 
-
 	public void setIsoCountry(String isoCountry) {
 		this.isoCountry = isoCountry;
-	}
+	}	
+	
 	
 	@Override
 	public String toString() {

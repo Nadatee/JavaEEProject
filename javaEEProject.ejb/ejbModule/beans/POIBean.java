@@ -1,6 +1,7 @@
 package beans;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +37,6 @@ public class POIBean implements POIBeanRemote, POIBeanLocal<ExcelData> {
     }
     
     List<String> list = new LinkedList<String>();
-    List<ExcelData> data = new LinkedList<ExcelData>();
     List<String> oldData = new LinkedList<String>();
     String text, oldText;
     
@@ -51,18 +51,27 @@ public class POIBean implements POIBeanRemote, POIBeanLocal<ExcelData> {
         URL exchange = new URL(url);
         Workbook wb = new HSSFWorkbook(exchange.openStream());
         Sheet sheet = wb.getSheetAt(0);
+        int rowNumber = sheet.getLastRowNum()+1;
         ExcelData data = new ExcelData();
-        List<ExcelData> information = new LinkedList<ExcelData>();
-  
-        for (Row row : sheet) {
+        List<ExcelData> information = new ArrayList<ExcelData>();
+        String [] dataStr = new String[3];
+
+        for(int i = 1; i < rowNumber; i++) {
           try {
-//              if(row.getRowNum() == 0)  
-//            	  row = sheet.getRow(1);
-        	  if(row.getFirstCellNum() == 0 && row.getCell(0).toString() != "") {
+        	  Row row = sheet.getRow(i);
+ 
+        	  if(row.getFirstCellNum() == 0 && row.getCell(0) != null) {
                     data = new ExcelData();
+                    data.setRowNumber(i);
                     data.setMic(row.getCell(0).toString().trim());
+                    dataStr[0] = row.getCell(0).toString().trim();
+                    
                     data.setOperatingMic(row.getCell(1).toString().trim());
+                    dataStr[1] = row.getCell(1).toString().trim();
+                    
                     data.setMicExchangeName(row.getCell(2).toString().trim());
+                    dataStr[2] = row.getCell(2).toString().trim();
+                    
                     data.setCorpExchange(row.getCell(3).toString().trim());
                     data.setEquityExchangeCode(row.getCell(4).toString().trim());
                     data.setEquityExchangeName(row.getCell(5).toString().trim());
@@ -70,20 +79,35 @@ public class POIBean implements POIBeanRemote, POIBeanLocal<ExcelData> {
                     data.setIsoCountry(row.getCell(7).toString().trim());
                     entityManager.persist(data);
                 }
+        	  else {
+        		  data = new ExcelData();
+        		  data.setRowNumber(i);
+        		  data.setMic(dataStr[0]);
+                                   
+                  data.setOperatingMic(dataStr[1]);
+                                    
+                  data.setMicExchangeName(dataStr[2]);
+                  data.setCorpExchange(row.getCell(3).toString().trim());
+                  data.setEquityExchangeCode(row.getCell(4).toString().trim());
+                  data.setEquityExchangeName(row.getCell(5).toString().trim());
+                  data.setCompositeCode(row.getCell(6).toString().trim());
+                  data.setIsoCountry(row.getCell(7).toString().trim());
+                  entityManager.persist(data);
+        	  }
          } catch (Exception e) {
               // TODO: handle exception
+        	 e.printStackTrace();
           }
  
             information.add(data);
-            System.out.println(data.getMic());
+            System.out.println(data.toString());
         }
+        System.out.println("row number is:" + rowNumber);
         wb.close();
         return information;
     }   
     
     public void create(ExcelData excelData) {
     	entityManager.persist(excelData);
-    }
-		            
-        
+    }      
 }
