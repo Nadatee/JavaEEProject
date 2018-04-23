@@ -1,9 +1,7 @@
 
-import java.awt.print.Paper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-
 import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -13,9 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import beans.FigiLocal;
-import beans.POIBeanLocal;
+
 
 /**
  * Servlet implementation class OpenFigiServlet
@@ -57,7 +54,10 @@ public class OpenFigiServlet<FigiData> extends HttpServlet {
 				session.setAttribute("Figi", figiLocal);
 			}
 
-			List<FigiData> info = figiLocal.openFigi();
+			/* TODO: idType, idValue, currency ogmicCode værdier skal hentes fra gui'en
+				openFigi(String idType, String idValue, String currency, String micCode ) 
+			*/
+			List<FigiData> info = figiLocal.openFigi("TICKER", "AAPL", null, null);
 			for (FigiData data : info) {
 				write.println("FigiData:" + data.toString());
 			}

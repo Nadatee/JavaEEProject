@@ -2,14 +2,12 @@ package beans;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
-
 import domain.FigiData;
 import domain.PaperID;
 
@@ -19,22 +17,22 @@ import domain.PaperID;
 @Stateless
 @LocalBean
 
-public class FigiBean implements FigiRemote, FigiLocal {
+public class FigiBean implements FigiRemote, FigiLocal<FigiData> {
 
 	String PATH = "https://api.openfigi.com/v1/mapping";
 	
 	public FigiBean() {
 	}
 	
-	public List<FigiData> openFigi() {
+	public List<FigiData> openFigi(String idType, String idValue, String currency, String micCode ) {
 		
 		List<FigiData> data = new ArrayList<FigiData>();
 		PaperID paperID = new PaperID();
-		// For at få hul igennem
-		paperID.setIdType("TICKER");
-		paperID.setIdValue("AAPL");
-		paperID.setCurrency(null);
-		paperID.setMicCode(null);
+				
+		paperID.setIdType(idType);
+		paperID.setIdValue(idValue);
+		paperID.setCurrency(currency);
+		paperID.setMicCode(micCode);
 		
 		data = getPapersFromFigi(paperID);
 		return data;

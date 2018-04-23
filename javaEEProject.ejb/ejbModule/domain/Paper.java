@@ -118,9 +118,9 @@ public class Paper {
 	
 	@Override 
 	public String toString() {
-		return ("data:[\n \"figi: " + figi + "\n \"securityType: " + securityType + "\n \"marketSector: " + marketSector + 
-				"\n \"ticker: " + ticker + "\n \"name: " + name + "\n \"uniqueID: " + uniqueID + "\n \"exchCode: " + exchCode +
-				"\n \"shareClassFIGI: " + shareClassFIGI + "\n \"compositeFIGI: " + compositeFIGI + "\n \"securityType2: " + securityType2 + "\n \"securityDescription: " + securityDescription 
-				+ "\n \"uniqueIDFutOpt: " + uniqueIDFutOpt + "\n \"metadata: " + metadata);					          
+		return ("\n \"data\" :[\n\t \"figi: " + figi + "\n\t \"securityType: " + securityType + "\n\t \"marketSector: " + marketSector + 
+				"\n\t \"ticker: " + ticker + "\n\t \"name: " + name + "\n\t \"uniqueID: " + uniqueID + "\n\t \"exchCode: " + exchCode +
+				"\n\t \"shareClassFIGI: " + shareClassFIGI + "\n\t \"compositeFIGI: " + compositeFIGI + "\n\t \"securityType2: " + securityType2 + "\n\t \"securityDescription: " + securityDescription 
+				+ "\n\t \"uniqueIDFutOpt: " + uniqueIDFutOpt + "\n\t \"metadata: " + metadata + "\n]");					          
 	}
 }
