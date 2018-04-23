@@ -42,8 +42,7 @@ public class POIBean implements POIBeanRemote, POIBeanLocal<ExcelData> {
     
 //	@Schedule(hour="*",minute="*",second="*/30")
 //	@Schedule(hour="*",minute="*/10")
-	
-    
+   
     
     
     public List<ExcelData> readExcel() throws IOException {
@@ -105,9 +104,6 @@ public class POIBean implements POIBeanRemote, POIBeanLocal<ExcelData> {
         System.out.println("row number is:" + rowNumber);
         wb.close();
         return information;
-    }   
+    }       
     
-    public void create(ExcelData excelData) {
-    	entityManager.persist(excelData);
-    }      
 }
