@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import beans.FigiLocal;
 
-
 /**
  * Servlet implementation class OpenFigiServlet
  */
