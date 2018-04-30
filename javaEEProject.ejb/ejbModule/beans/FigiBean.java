@@ -24,11 +24,13 @@ public class FigiBean implements FigiRemote, FigiLocal<FigiData> {
 	public FigiBean() {
 	}
 	
+	@Override
 	public List<FigiData> openFigi(String idType, String idValue, String currency, String micCode ) {
 		
 		List<FigiData> data = new ArrayList<FigiData>();
 		PaperID paperID = new PaperID();
-				
+		System.out.println("Fra FigiBean currency: " + currency);
+		
 		paperID.setIdType(idType);
 		paperID.setIdValue(idValue);
 		paperID.setCurrency(currency);
@@ -40,7 +42,7 @@ public class FigiBean implements FigiRemote, FigiLocal<FigiData> {
 	}
 
 	private List<FigiData> getPapersFromFigi(PaperID paperID) {
-
+				
 		Client client = ClientBuilder.newClient();
 		List<FigiData> data = client.target(PATH).request("text/json").post(Entity.entity(paperID.toJson(), "text/json"),
 				new GenericType<List<FigiData>>() {
@@ -65,4 +67,5 @@ public class FigiBean implements FigiRemote, FigiLocal<FigiData> {
 //    	}
 //    	return micExchanges;
 //    }	
+	
 }

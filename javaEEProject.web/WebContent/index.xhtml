@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+<body>
+	<h:form>
+		<h1>OpenFigi API</h1>
+		<p:messages id="messages" showDetail="false" autoUpdate="true" />
+
+		<h:panelGrid id="grid" columns="3" cellpadding="5">
+
+			<p:outputLabel for="idType" value="IDType:" />
+			<p:inputText id="idType" required="true"
+				value="#{openFigiModel.paperID.idType}" />
+			<p:message for="idType" />
+
+			<p:outputLabel for="idValue" value="IDValue:" />
+			<p:inputText id="idValue" required="true"
+				value="#{openFigiModel.paperID.idValue}" />
+			<p:message for="idValue" />
+
+			<p:outputLabel for="currency" value="Currency" />
+			<p:inputText id="currency" value="#{openFigiModel.paperID.currency}" />
+			<p:message for="currency" />
+
+			<p:outputLabel for="micCode" value="MicCode" />
+			<p:inputText id="micCode" value="#{openFigiModel.paperID.micCode}" />
+			<p:message for="micCode" />
+
+			<p:commandButton id="searchbutton" value="Search"
+				actionListener="#{openFigiControl.search}" ajax="false" />
+
+		</h:panelGrid>
+
+		<br />
+
+		<p:dataTable var="paper" value="#{openFigiModel.paper}"
+			rendered="#{openFigiModel.showTable}">
+
+			<p:column headerText="Name">
+				<h:outputText value="#{paper.name}" />
+			</p:column>
+
+			<p:column headerText="Ticker">
+				<h:outputText value="#{paper.ticker}" />
+			</p:column>
+
+			<p:column headerText="Exch code">
+				<h:outputText value="#{paper.exchCode}" />
+			</p:column>
+
+			<p:column headerText="Security Type">
+				<h:outputText value="#{paper.securityType}" />
+			</p:column>
+
+			<p:column headerText="Market Sector">
+				<h:outputText value="#{paper.marketSector}" />
+			</p:column>
+
+			<p:column headerText="Figi">
+				<h:outputText value="#{paper.figi}" />
+			</p:column>
+
+			<p:column headerText="Figi Composite">
+				<h:outputText value="#{paper.compositeFIGI}" />
+			</p:column>
+
+
+			<!-- Ved valg af en linje vises informationer om Mic (fra Excel-arket).  -->
+
+			<!-- <p:column style="width:32px;text-align: center">
+				<p:commandButton update=":form:paper"
+					oncomplete="PF('MicData').show()" icon="ui-icon-search"
+					title="Mic">
+					<f:setPropertyActionListener value="#{car}"
+						target="#{dtSelectionView.selectedCar}" />
+				</p:commandButton>
+			</p:column> -->
+
+		</p:dataTable>
+
+	</h:form>
+</body>
+</html>
