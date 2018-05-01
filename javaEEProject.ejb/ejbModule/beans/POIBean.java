@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -13,7 +14,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import domain.ExcelData;
+import exchangeDataEntity.ExcelData;
 
 
 /**
@@ -93,15 +94,37 @@ public class POIBean implements POIBeanRemote, POIBeanLocal<ExcelData> {
         	  }
          } catch (Exception e) {
               // TODO: handle exception
-        	 e.printStackTrace();
+        	 //e.printStackTrace();
           }
  
             information.add(data);
-            System.out.println(data.toString());
+            //System.out.println(data.toString());
         }
         System.out.println("row number is:" + rowNumber);
         wb.close();
         return information;
-    }       
+    } 
+    
+   
+    public Optional<ExcelData> read(String isoCountry) {
+    	
+    	Optional<ExcelData> opt = Optional.empty();
+			try {
+			List<ExcelData> excelDatae = entityManager.createNamedQuery("getExcelDataFromIsoCountry", ExcelData.class)
+					.setParameter("isocountry", isoCountry.toUpperCase())
+					.getResultList();
+			
+			if(excelDatae.size() >= 1) {
+				opt = Optional.of(excelDatae.get(0).map(new ExcelData()));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+    	
+    	  System.out.println("ExcelData from DB: til isocountry:" + isoCountry + " is: "+ opt);
+    	
+		return opt;
+    }
     
 }

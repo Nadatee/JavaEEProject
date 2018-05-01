@@ -3,6 +3,7 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Optional;
 
 import javax.ejb.EJB;
 import javax.naming.InitialContext;
@@ -52,15 +53,21 @@ public class POIServlet<ExcelData> extends HttpServlet {
 				try {
 					poiLocal = (POIBeanLocal<ExcelData>) new  InitialContext().lookup("java:app/javaEEProject.ejb/POIBean!beans.POIBeanLocal");
 				} catch (NamingException e) {					
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 				session.setAttribute("stateless", poiLocal);
 			}
 						
 			List<ExcelData> info = poiLocal.readExcel();
-			for(ExcelData data :info ) {
-				write.println("ExcelData:" + data.toString());			    
-			}
+//			for(ExcelData data :info ) {
+//				write.println("ExcelData:" + data.toString());		
+//			}	
+			
+			//// hent data fra databasen:
+			Optional<ExcelData> dataFraDB = poiLocal.read("ZA");
+			//for(ExcelData dataDB :dataFraDB ) {
+				write.println("ExcelData fra DB: " + dataFraDB.toString());	
+			//}		
 		}
 	}
 

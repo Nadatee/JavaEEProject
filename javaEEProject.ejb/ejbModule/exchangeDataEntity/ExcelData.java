@@ -1,4 +1,4 @@
-package domain;
+package exchangeDataEntity;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
+@NamedQuery(name = "getExcelDataFromIsoCountry", 
+			query = "SELECT e FROM ExcelData e " + "WHERE UPPER(e.isoCountry) = :isocountry")
 
 public class ExcelData implements Serializable {
 
@@ -116,6 +118,20 @@ public class ExcelData implements Serializable {
 	public void setIsoCountry(String isoCountry) {
 		this.isoCountry = isoCountry;
 	}
+	
+	public ExcelData map(ExcelData excelData) {
+		excelData.setCompositeCode(compositeCode);
+		excelData.setCorpExchange(corpExchange);
+		excelData.setEquityExchangeCode(equityExchangeCode);
+		excelData.setEquityExchangeName(equityExchangeName);
+		excelData.setIsoCountry(isoCountry);
+		excelData.setMic(mic);		
+		excelData.setMicExchangeName(micExchangeName);
+		excelData.setOperatingMic(operatingMic);
+		excelData.setRowNumber(rowNumber);
+		
+		return excelData;		
+	} 
 
 	@Override
 	public String toString() {
@@ -123,5 +139,5 @@ public class ExcelData implements Serializable {
 				+ " corpExchange = " + corpExchange + " equityExchangeCode=" + equityExchangeCode
 				+ " equityExchangeName = " + equityExchangeName + " compositeCode = " + compositeCode + " isoCountry = "
 				+ isoCountry);
-	}
+	}	
 }
