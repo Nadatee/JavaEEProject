@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head></h:head>
 <body>
-	<h:form>
+	<h:form id="form">
 		<h1>OpenFigi API</h1>
 		<p:messages id="messages" showDetail="false" autoUpdate="true" />
 
@@ -28,12 +28,18 @@
 			</p:selectOneMenu>
 			<p:message for="idValue" />
 
-			<p:outputLabel for="currency" value="Currency" />
-			<p:inputText id="currency" value="#{openFigiModel.paperID.currency}" />
+			<p:outputLabel for="currency" value="Currency" />			
+			<p:selectOneMenu id="currency" value="#{openFigiModel.paperID.currency}" editable="true">
+				<f:selectItem itemLabel="Select One" itemValue="" />	           
+	            <f:selectItem itemLabel="Test" itemValue="Test" />	 
+			</p:selectOneMenu>			
 			<p:message for="currency" />
 
-			<p:outputLabel for="micCode" value="MicCode" />
-			<p:inputText id="micCode" value="#{openFigiModel.paperID.micCode}" />
+			<p:outputLabel for="micCode" value="MicCode" />			
+			<p:selectOneMenu id="micCode" value="#{openFigiModel.paperID.micCode}" editable="true">
+				<f:selectItem itemLabel="Select One" itemValue="" />	           
+	            <f:selectItem itemLabel="Test" itemValue="Test" />	 
+			</p:selectOneMenu>		
 			<p:message for="micCode" />
 
 			<p:commandButton id="searchbutton" value="Search"
@@ -43,79 +49,78 @@
 
 		<br />
 
-		<p:dataTable var="paper" value="#{openFigiModel.paper}"
+		<p:dataTable id="table" var="papersWithMicInfo" 			
+			value="#{openFigiModel.papersWithMicInfo}"
 			rendered="#{openFigiModel.showTable}">
 
 			<p:column headerText="Name">
-				<h:outputText value="#{paper.name}" />
+				<h:outputText value="#{papersWithMicInfo.paper.name}" />
 			</p:column>
 
 			<p:column headerText="Ticker">
-				<h:outputText value="#{paper.ticker}" />
+				<h:outputText value="#{papersWithMicInfo.paper.ticker}" />
 			</p:column>
 
 			<p:column headerText="Exch code">
-				<h:outputText value="#{paper.exchCode}" />
+				<h:outputText value="#{papersWithMicInfo.paper.exchCode}" />
 			</p:column>
 
 			<p:column headerText="Security Type">
-				<h:outputText value="#{paper.securityType}" />
+				<h:outputText value="#{papersWithMicInfo.paper.securityType}" />
 			</p:column>
 
 			<p:column headerText="Market Sector">
-				<h:outputText value="#{paper.marketSector}" />
+				<h:outputText value="#{papersWithMicInfo.paper.marketSector}" />
 			</p:column>
 
 			<p:column headerText="Figi">
-				<h:outputText value="#{paper.figi}" />
+				<h:outputText value="#{papersWithMicInfo.paper.figi}" />
 			</p:column>
 
 			<p:column headerText="Figi Composite">
-				<h:outputText value="#{paper.compositeFIGI}" />
+				<h:outputText value="#{papersWithMicInfo.paper.compositeFIGI}" />
 			</p:column>
-
-
+		
+		
 			<!-- Ved valg af en linje vises informationer om Mic (fra Excel-arket).  -->
-
-			<p:column style="width:32px;text-align: center">
-				<p:commandButton 
-					oncomplete="PF('MicData').show()" 
-					icon="ui-icon-search" 					
-					title="Mic info">
-					
-					<f:setPropertyActionListener value="#{paper}" target="#{openFigiModel.paper}" />
-				</p:commandButton>
-			</p:column> 
 			
-			<p:dialog header="Mic Info" widgetVar="micDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-        		<p:outputPanel id="MicDetail" style="text-align:center;">
-            		<p:panelGrid  columns="2" rendered="#{not empty openFigiModel.paper}" columnClasses="label,value"> 
-			<!--  <f:facet name="header">
-		                    <p:graphicImage name="demo/images/car/#{dtSelectionView.selectedCar.brand}-big.gif"/> 
-		    </f:facet> -->
-
-			<h:outputText value="Mic:" />
-			<h:outputText value="#{paper.figi}" />
-
-			<h:outputText value="Operating Mic:" />
-			<h:outputText value="#{paper.figi}" />
-
-			<h:outputText value="Mic Exchange Name:" />
-			<h:outputText value="#{paper.figi}" />
-
-			<!-- <h:outputText value="Composite Code:" />
-			<h:outputText value="$#{dtSelectionView.selectedCar.price}" />
-
-			<h:outputText value="ISO Country:" />
-			<h:outputText value="$#{dtSelectionView.selectedCar.price}" />
- -->
-			</p:panelGrid>
-			</p:outputPanel>
-			</p:dialog>
-						
-
+			<p:column style="width:40px; text-align: center">
+				<p:commandButton update=":form:micDetail"					
+					oncomplete="PF('micDialog').show()" 
+					icon="ui-icon-search" 					
+					title="Mic info" >					
+					<f:setPropertyActionListener value="#{papersWithMicInfo}" target="#{openFigiModel.paperMic}"  /> 
+				</p:commandButton>
+			</p:column> 			
+									
 		</p:dataTable>
-
+						
+		<p:dialog header="Mic Info" widgetVar="micDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        		<p:outputPanel id="micDetail" style="text-align:left;">
+            		<p:panelGrid  columns="2" rendered="#{not empty openFigiModel.paperMic}"  columnClasses="label,value" > 									
+						
+						<h:outputText value="Exchange Code:" />
+						<h:outputText value="#{openFigiModel.paperMic.excelData.equityExchangeCode}"  />		
+						
+						<h:outputText value="Mic:" />
+						<h:outputText value="#{openFigiModel.paperMic.excelData.mic}" />
+			
+						<h:outputText value="Operating Mic:" />
+						<h:outputText value="#{openFigiModel.paperMic.excelData.operatingMic}" />
+						
+						<h:outputText value="Mic Exchange Name:" />
+						<h:outputText value="#{openFigiModel.paperMic.excelData.equityExchangeName}" />	
+								
+					    <h:outputText value="Composite Code:" />
+						<h:outputText value="#{openFigiModel.paperMic.excelData.compositeCode}"  />
+			
+						<h:outputText value="ISO Country:" />
+						<h:outputText value="#{openFigiModel.paperMic.excelData.isoCountry}"  />								
+						
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>	
+		
 	</h:form>
 </body>
 </html>

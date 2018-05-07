@@ -3,8 +3,6 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Optional;
-
 import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -59,12 +57,12 @@ public class POIServlet<ExcelData> extends HttpServlet {
 			}
 						
 			List<ExcelData> info = poiLocal.readExcel();
-//			for(ExcelData data :info ) {
-//				write.println("ExcelData:" + data.toString());		
-//			}	
+			for(ExcelData data :info ) {
+				write.println("ExcelData:" + data.toString());		
+			}	
 			
 			//// hent data fra databasen:
-			Optional<ExcelData> dataFraDB = poiLocal.read("ZA");
+			ExcelData dataFraDB = poiLocal.getExcelDataFromDB("UN");
 			//for(ExcelData dataDB :dataFraDB ) {
 				write.println("ExcelData fra DB: " + dataFraDB.toString());	
 			//}		

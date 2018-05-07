@@ -1,25 +1,49 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import domain.FigiData;
 import domain.Paper;
 import domain.PaperID;
 
 @Named
-@RequestScoped
+@SessionScoped
 public class OpenFigiModel implements Serializable {
 
-	private static final long serialVersionUID = 1L;	
+	private static final long serialVersionUID = 1L;
 
 	private PaperID paperID = new PaperID();
-
 	private List<FigiData> figiData = new ArrayList<FigiData>();
-	
-	private List<Paper> paper = new ArrayList<Paper>();
-	
+	private List<Paper> papers = new ArrayList<Paper>();
 	private boolean showTable = false;
+	private List<PaperWithMicInfo> papersWithMicInfo;
+	private PaperWithMicInfo paperMic;
+
+
+	public PaperWithMicInfo getPaperMic() {
+		return paperMic;
+	}
+
+	public void setPaperMic(PaperWithMicInfo paperMic) {
+		this.paperMic = paperMic;
+	}
+
+	public List<PaperWithMicInfo> getPapersWithMicInfo() {
+		return papersWithMicInfo;
+	}
+
+	public void setPapersWithMicInfo(List<PaperWithMicInfo> papersWithMicInfo) {
+		this.papersWithMicInfo = papersWithMicInfo;
+	}
+
+	public List<Paper> getPapers() {
+		return papers;
+	}
+
+	public void setPapers(List<Paper> papers) {
+		this.papers = papers;
+	}
 
 	public boolean isShowTable() {
 		return showTable;
@@ -27,15 +51,7 @@ public class OpenFigiModel implements Serializable {
 
 	public void setShowTable(boolean showTable) {
 		this.showTable = showTable;
-	}
-
-	public List<Paper> getPaper() {
-		return paper;
-	}
-
-	public void setPaper(List<Paper> paper) {
-		this.paper = paper;
-	}
+	}	
 
 	public List<FigiData> getFigiData() {
 		return figiData;

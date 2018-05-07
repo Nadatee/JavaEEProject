@@ -1,4 +1,4 @@
-package exchangeDataEntity;
+package domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @NamedQuery(name = "getExcelDataFromIsoCountry", 
-			query = "SELECT e FROM ExcelData e " + "WHERE UPPER(e.isoCountry) = :isocountry")
+			query = "SELECT e FROM ExcelData e " + "WHERE UPPER(e.equityExchangeCode) = :equityExchangeCode")
 
 public class ExcelData implements Serializable {
 
