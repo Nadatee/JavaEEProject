@@ -95,9 +95,13 @@
 									
 		</p:dataTable>
 						
-		<p:dialog header="Mic Info" widgetVar="micDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-        		<p:outputPanel id="micDetail" style="text-align:left;">
+		<p:dialog header="Mic Info"  widgetVar="micDialog" modal="true" showEffect="slide" hideEffect="fade" resizable="false" >
+        		<p:outputPanel id="micDetail" style="text-align:left;" >
             		<p:panelGrid  columns="2" rendered="#{not empty openFigiModel.paperMic}"  columnClasses="label,value" > 									
+						
+						<f:facet name="header">
+                    		<p:graphicImage url="resource\images\openFigi.png"/> 
+                		</f:facet>
 						
 						<h:outputText value="Exchange Code:" />
 						<h:outputText value="#{openFigiModel.paperMic.excelData.equityExchangeCode}"  />		
@@ -115,7 +119,7 @@
 						<h:outputText value="#{openFigiModel.paperMic.excelData.compositeCode}"  />
 			
 						<h:outputText value="ISO Country:" />
-						<h:outputText value="#{openFigiModel.paperMic.excelData.isoCountry}"  />								
+						<h:outputText value="#{openFigiModel.paperMic.excelData.isoCountry}" />								
 						
 					</p:panelGrid>
 				</p:outputPanel>
