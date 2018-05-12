@@ -29,18 +29,21 @@ public class OpenFigiControl  implements Serializable{
 		ExcelData excelData = new ExcelData();
 		List<ExcelData> excelDataList = new ArrayList<ExcelData>();
 		List<Paper> paperList = new ArrayList<Paper>();
+		List<FigiData> figiData = new ArrayList<FigiData>();
 		
+		try {
 		model.setPaperID(model.getPaperID());		
-		List<FigiData> figiData = ejb.openFigi(model.getPaperID().getIdType(), model.getPaperID().getIdValue(), model.getPaperID().getCurrency(), model.getPaperID().getMicCode());
+		figiData = ejb.openFigi(model.getPaperID().getIdType(), model.getPaperID().getIdValue(), model.getPaperID().getCurrency(), model.getPaperID().getMicCode());
 
 		model.setFigiData(figiData);
 
 		int i = 0;	
-		data = model.getFigiData();	
-		for(FigiData info: data) {
-			papers= info.getData();
-			for(Paper paper: papers) {
-				try {
+		
+			data = model.getFigiData();	
+			for(FigiData info: data) {
+				papers= info.getData();
+				for(Paper paper: papers) {
+					
 					if(!paper.getExchCode().isEmpty() || paper.getExchCode() != null) {
 						paperWithMic = new PaperWithMicInfo();
 						papersWithoutNullValues.add(paper);
@@ -55,15 +58,16 @@ public class OpenFigiControl  implements Serializable{
 						papersWithMic.add(paperWithMic);
 						
 					}
-				} catch (Exception e) {
+				}
+			}
+		} catch (Exception e) {
 					// TODO Auto-generated catch block
 					//e.printStackTrace();
-				}				
-			}
-		}
+					model.setShowTable(false);
+		}				
 		
 		model.setPapers(papersWithoutNullValues);
-		model.setPapersWithMicInfo(papersWithMic);
+		model.setPapersWithMicInfo(papersWithMic);		
 		model.setShowTable(true);
 		
 		return data;

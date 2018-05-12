@@ -29,7 +29,7 @@ public class FigiBean implements FigiRemote, FigiLocal<FigiData> {
 		
 		List<FigiData> data = new ArrayList<FigiData>();
 		PaperID paperID = new PaperID();
-		System.out.println("Fra FigiBean currency: " + currency);
+		System.out.println("Fra FigiBean idType: " + idType);
 		
 		paperID.setIdType(idType);
 		paperID.setIdValue(idValue);

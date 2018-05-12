@@ -14,17 +14,18 @@
 			
 			<p:outputLabel for="idType" value="IDType: " />
        		<p:selectOneMenu id="idType" required="true" value="#{openFigiModel.paperID.idType}" editable="true" >
-	            <f:selectItem itemLabel="Select One" itemValue="" />
-	            <f:selectItem itemLabel="TICKER" itemValue="TICKER" />
+	            <f:selectItem noSelectionOption="true" itemLabel="Select One" itemValue=""/>
+	            <f:selectItem itemLabel="TICKER" itemValue="TICKER" />	
 	            <f:selectItem itemLabel="Test" itemValue="Test" />	            
+	            <p:ajax update="searchbutton"/> 	                       
         	</p:selectOneMenu>
         	<p:message for="idType" />
 
 			<p:outputLabel for="idValue" value="IDValue:" />
 			<p:selectOneMenu id="idValue" required="true" value="#{openFigiModel.paperID.idValue}" editable="true">
-				<f:selectItem itemLabel="Select One" itemValue="" />
-	            <f:selectItem itemLabel="AAPL" itemValue="AAPL" />
-	            <f:selectItem itemLabel="Test" itemValue="Test" />	  
+				<f:selectItem noSelectionOption="true" itemLabel="Select One" itemValue=""/>
+	            <f:selectItem itemLabel="AAPL" itemValue="AAPL" />	            
+	            <p:ajax update="searchbutton"/>   
 			</p:selectOneMenu>
 			<p:message for="idValue" />
 
@@ -42,7 +43,7 @@
 			</p:selectOneMenu>		
 			<p:message for="micCode" />
 
-			<p:commandButton id="searchbutton" value="Search"
+			<p:commandButton id="searchbutton" value="Search" disabled="#{empty openFigiModel.paperID.idType or empty openFigiModel.paperID.idValue }"
 				actionListener="#{openFigiControl.search}" ajax="false" />
 
 		</h:panelGrid>
@@ -50,8 +51,8 @@
 		<br />
 
 		<p:dataTable id="table" var="papersWithMicInfo" 			
-			value="#{openFigiModel.papersWithMicInfo}"
-			rendered="#{openFigiModel.showTable}">
+			value="#{openFigiModel.papersWithMicInfo}"			
+			rendered="#{openFigiModel.showTable and selectOneMenu1 ne ''}">
 
 			<p:column headerText="Name">
 				<h:outputText value="#{papersWithMicInfo.paper.name}" />

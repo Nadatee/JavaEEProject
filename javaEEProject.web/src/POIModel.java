@@ -13,6 +13,8 @@ public class POIModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<ExcelData> excelDatas = new ArrayList<ExcelData>();
 	private ExcelData excelData = new ExcelData();
+	private String exchCode;
+	
 	public ExcelData getExcelData() {
 		return excelData;
 	}
@@ -28,8 +30,6 @@ public class POIModel implements Serializable {
 	public void setExcelData(ExcelData excelData) {
 		this.excelData = excelData;
 	}
-
-	private String exchCode;
 
 	public String getExchCode() {
 		return exchCode;
