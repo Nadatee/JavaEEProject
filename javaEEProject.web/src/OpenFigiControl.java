@@ -1,10 +1,12 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
 import beans.FigiLocal;
 import domain.ExcelData;
 import domain.FigiData;
@@ -32,12 +34,12 @@ public class OpenFigiControl  implements Serializable{
 		List<FigiData> figiData = new ArrayList<FigiData>();
 		
 		try {
-		model.setPaperID(model.getPaperID());		
-		figiData = ejb.openFigi(model.getPaperID().getIdType(), model.getPaperID().getIdValue(), model.getPaperID().getCurrency(), model.getPaperID().getMicCode());
+			model.setPaperID(model.getPaperID());		
+			figiData = ejb.openFigi(model.getPaperID().getIdType(), model.getPaperID().getIdValue(), model.getPaperID().getCurrency(), model.getPaperID().getMicCode());
 
-		model.setFigiData(figiData);
+			model.setFigiData(figiData);
 
-		int i = 0;	
+			int i = 0;	
 		
 			data = model.getFigiData();	
 			for(FigiData info: data) {

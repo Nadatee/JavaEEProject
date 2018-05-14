@@ -1,6 +1,8 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import domain.FigiData;
@@ -19,8 +21,7 @@ public class OpenFigiModel implements Serializable {
 	private boolean showTable = false;
 	private List<PaperWithMicInfo> papersWithMicInfo;
 	private PaperWithMicInfo paperMic;
-
-
+	
 	public PaperWithMicInfo getPaperMic() {
 		return paperMic;
 	}

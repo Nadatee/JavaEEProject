@@ -9,8 +9,16 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
-@NamedQuery(name = "getExcelDataFromIsoCountry", 
-			query = "SELECT e FROM ExcelData e " + "WHERE UPPER(e.equityExchangeCode) = :equityExchangeCode")
+@NamedQueries({
+	@NamedQuery(name = "getExcelDataFromIsoCountry", 
+			query = "SELECT e FROM ExcelData e " + "WHERE UPPER(e.equityExchangeCode) = :equityExchangeCode"),
+	
+	@NamedQuery(name = "getExcelData", 
+		query = "SELECT e FROM ExcelData e "),
+	
+	@NamedQuery(name = "deleteExcelData", 
+		query = "DELETE FROM ExcelData")
+})
 
 public class ExcelData implements Serializable {
 

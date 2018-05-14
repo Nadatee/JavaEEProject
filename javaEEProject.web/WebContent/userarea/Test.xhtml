@@ -7,7 +7,6 @@
 <h:head></h:head>
 <body>
 	<h:form id="form">
-		
 		<h1>OpenFigi API</h1>
 		<p:messages id="messages" showDetail="false" autoUpdate="true" />
 
@@ -44,16 +43,11 @@
 			</p:selectOneMenu>		
 			<p:message for="micCode" />
 
-			<p:commandButton id="searchbutton" value="Search" 
-				disabled="#{empty openFigiModel.paperID.idType or empty openFigiModel.paperID.idValue}"
+			<p:commandButton id="searchbutton" value="Search" disabled="#{empty openFigiModel.paperID.idType or empty openFigiModel.paperID.idValue }"
 				actionListener="#{openFigiControl.search}" ajax="false" />
-				
-			<p:commandButton id="updatebutton" value="Update Mic data"
-			 	rendered="#{p:ifGranted('role3')}"
-				actionListener="#{pOIControl.updateMicInfo()}" ajax="false" />
-			
+
 		</h:panelGrid>
-		
+
 		<br />
 
 		<p:dataTable id="table" var="papersWithMicInfo" 			
@@ -91,12 +85,11 @@
 		
 			<!-- Ved valg af en linje vises informationer om Mic (fra Excel-arket).  -->
 			
-			<p:column style="width:40px; text-align: center" rendered="#{p:ifGranted('role2')}">
+			<p:column style="width:40px; text-align: center">
 				<p:commandButton update=":form:micDetail"					
-					oncomplete="PF('micDialog').show()  " 
+					oncomplete="PF('micDialog').show()" 
 					icon="ui-icon-search" 					
-					title="Mic info" 
-					  >					
+					title="Mic info" >					
 					<f:setPropertyActionListener value="#{papersWithMicInfo}" target="#{openFigiModel.paperMic}"  /> 
 				</p:commandButton>
 			</p:column> 			

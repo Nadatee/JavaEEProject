@@ -2,8 +2,13 @@ package beans;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Resource;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.LocalBean;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -16,21 +21,25 @@ import domain.PaperID;
  */
 @Stateless
 @LocalBean
-
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
+@RolesAllowed("role1")
 public class FigiBean implements FigiRemote, FigiLocal<FigiData> {
 
 	String PATH = "https://api.openfigi.com/v1/mapping";
+	@Resource private SessionContext ctx;
+	
 	
 	public FigiBean() {
 	}
 	
 	@Override
+	@RolesAllowed("role1")
 	public List<FigiData> openFigi(String idType, String idValue, String currency, String micCode ) {
 		
 		List<FigiData> data = new ArrayList<FigiData>();
 		PaperID paperID = new PaperID();
 		System.out.println("Fra FigiBean idType: " + idType);
-		
+				
 		paperID.setIdType(idType);
 		paperID.setIdValue(idValue);
 		paperID.setCurrency(currency);

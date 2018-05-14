@@ -1,4 +1,7 @@
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -22,5 +25,24 @@ public class POIControl implements Serializable{
 		
 		excelData = poiLocal.getExcelDataFromDB(exchCode);
 		return excelData;
+	}
+	
+	public List<ExcelData> updateMicInfo() {
+		List<ExcelData> excelDataList = new ArrayList<ExcelData>();	
+		ExcelData excelData = new ExcelData();		
+		excelDataList = poiLocal.getExcelDataDB();
+		System.out.println("delete func: excelData =" + excelData.toString());
+		if(!excelDataList.isEmpty()) {
+			System.out.println("\n\n\n JEG ER KOMMET HERTIL \\n\\n\\n" );
+			poiLocal.deleteExcelDataFromDB(excelDataList);
+		}
+		try {
+			System.out.println("WHAT!!!!!!");
+			excelDataList = poiLocal.readExcel();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return excelDataList;
 	}
 }

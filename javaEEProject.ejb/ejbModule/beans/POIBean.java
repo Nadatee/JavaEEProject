@@ -5,13 +5,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -122,5 +120,24 @@ public class POIBean implements POIBeanRemote, POIBeanLocal<ExcelData> {
 
 		return opt;
 	}
+		
+	public List<ExcelData> getExcelDataDB() {
+		
+		List<ExcelData> excelDatae = new ArrayList<ExcelData>();
+		try {
+			excelDatae = entityManager.createNamedQuery("getExcelData", ExcelData.class).getResultList();
 
+		} catch (Exception e) {			
+			System.out.println("Exception: FRA getExcelData() i POIBEAN");
+		}		
+
+		return excelDatae;
+	}
+	
+		
+	public void deleteExcelDataFromDB(List<ExcelData> excelDataList) {
+		
+		for(ExcelData excelData: excelDataList )
+			entityManager.remove(entityManager.contains(excelData) ? excelData : entityManager.merge(excelData));
+	}
 }
